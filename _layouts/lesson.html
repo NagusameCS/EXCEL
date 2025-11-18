@@ -1,0 +1,106 @@
+---
+layout: default
+---
+
+{%- assign lesson_slug = page.slug | default: page.name | split: '.' | first -%}
+<article class="lesson-view" data-lesson-slug="{{ lesson_slug }}">
+  <header class="lesson-hero">
+    <div>
+      <p class="eyebrow">{{ page.tool }} • {{ page.difficulty }}</p>
+      <h1>{{ page.title }}</h1>
+      <p>{{ page.pitch | default: page.description }}</p>
+      <dl>
+        <div>
+          <dt>Time</dt>
+          <dd>{{ page.duration }} min</dd>
+        </div>
+        <div>
+          <dt>Focus</dt>
+          <dd>{{ page.focus | default: page.tool }}</dd>
+        </div>
+        <div>
+          <dt>Learning goal</dt>
+          <dd>{{ page.goal }}</dd>
+        </div>
+      </dl>
+    </div>
+    <span class="lesson-icon material-symbols-rounded" aria-hidden="true">{{ page.icon | default: 'calculate' }}</span>
+  </header>
+
+  <section class="lesson-section">
+    <h2>Scenario</h2>
+    {{ content }}
+  </section>
+
+  {%- if page.dataset -%}
+    <section class="lesson-section">
+      <h2>Dataset</h2>
+      <p>{{ page.dataset.description }}</p>
+      {% include dataset-table.html dataset=page.dataset %}
+    </section>
+  {%- endif -%}
+
+  {%- assign challenge_array = page.challenges -%}
+  {%- if challenge_array -%}
+    <section class="lesson-section">
+      <h2>Puzzle lab</h2>
+      <div class="challenge-stack">
+        {%- for challenge in challenge_array -%}
+          {%- assign validator = challenge.validator -%}
+          <article class="challenge" data-validator-type="{{ validator.type | default: 'text' }}" data-expected="{{ validator.answer | strip_newlines | escape }}">
+            <header>
+              <p class="eyebrow">{{ challenge.mode | default: 'Hands-on' }}</p>
+              <h3>{{ challenge.title }}</h3>
+            </header>
+            <p>{{ challenge.prompt }}</p>
+            {%- if challenge.steps -%}
+              <ol>
+                {%- for step in challenge.steps -%}
+                  <li>{{ step }}</li>
+                {%- endfor -%}
+              </ol>
+            {%- endif -%}
+            {%- if challenge.dataset -%}
+              {% include dataset-table.html dataset=challenge.dataset %}
+            {%- endif -%}
+            <label class="input-label" for="answer-{{ forloop.index }}">Submit your answer</label>
+            <div class="input-row">
+              <input id="answer-{{ forloop.index }}" type="text" autocomplete="off" placeholder="Type the formula or value" />
+              <button class="cta" data-check-button>Check</button>
+            </div>
+            <p class="feedback" data-feedback aria-live="polite"></p>
+            <details>
+              <summary>Need a hint?</summary>
+              <p>{{ validator.hint | default: 'Look at the references you are using.' }}</p>
+            </details>
+          </article>
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- if page.upnext or page.resources -%}
+    <section class="lesson-section lesson-grid">
+      {%- if page.upnext -%}
+        <article>
+          <h2>Extend it</h2>
+          <ul>
+            {%- for item in page.upnext -%}
+              <li>{{ item }}</li>
+            {%- endfor -%}
+          </ul>
+        </article>
+      {%- endif -%}
+      {%- if page.resources -%}
+        <article>
+          <h2>Resources</h2>
+          <ul>
+            {%- for resource in page.resources -%}
+              <li><a href="{{ resource.url }}" target="_blank" rel="noopener">{{ resource.label }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </article>
+      {%- endif -%}
+    </section>
+  {%- endif -%}
+</article>

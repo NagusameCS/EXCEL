@@ -1,0 +1,35 @@
+title: Excel Quest
+email: learn@excelquest.com
+description: >-
+  Puzzle-first Excel training inspired by code.org challenges. Learn formulas, pivots,
+  and data cleanup with guided datasets and instant feedback.
+baseurl: ""
+url: ""
+markdown: kramdown
+permalink: pretty
+
+collections:
+  lessons:
+    output: true
+    permalink: /lessons/:slug/
+
+defaults:
+  - scope:
+      path: ""
+      type: "lessons"
+    values:
+      layout: lesson
+      difficulty: Explorer
+      duration: 10
+      tool: Core Skills
+      icon: calculate
+      status: published
+
+plugins:
+  - jekyll-feed
+
+exclude:
+  - README.md
+  - node_modules
+  - vendor
+  - Gemfile.lock

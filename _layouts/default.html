@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ page.title | default: site.title }}</title>
+    <meta name="description" content="{{ page.description | default: site.description }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
+    {%- if page.extra_css -%}
+      {%- for sheet in page.extra_css -%}
+        <link rel="stylesheet" href="{{ sheet | relative_url }}" />
+      {%- endfor -%}
+    {%- endif -%}
+    <script defer src="{{ '/assets/js/app.js' | relative_url }}"></script>
+  </head>
+  <body class="page-{{ page.layout | default: 'default' }}">
+    <header class="site-header">
+      <a class="brand" href="{{ '/' | relative_url }}">
+        <span class="material-symbols-rounded" aria-hidden="true">grid_view</span>
+        <span>{{ site.title }}</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        {%- assign nav_items = site.data.navigation -%}
+        {%- for item in nav_items -%}
+          <a href="{{ item.url | relative_url }}">{{ item.label }}</a>
+        {%- endfor -%}
+      </nav>
+      <button class="progress-toggle" data-progress-toggle>
+        <span class="material-symbols-rounded" aria-hidden="true">check_small</span>
+        <span>Progress</span>
+      </button>
+    </header>
+
+    <div class="progress-panel" data-progress-panel>
+      <p class="progress-title">Lesson tracker</p>
+      <ul class="progress-list" data-progress-list></ul>
+      <button class="ghost" data-progress-reset>Reset progress</button>
+    </div>
+
+    <main class="site-main">
+      {{ content }}
+    </main>
+
+    <footer class="site-footer">
+      <p>Built with Jekyll • {{ site.title }}</p>
+      <a href="https://github.com/{{ site.github_username | default: 'NagusameCS' }}/{{ site.repository | default: 'EXCEL' }}" target="_blank" rel="noopener">View source</a>
+    </footer>
+  </body>
+</html>

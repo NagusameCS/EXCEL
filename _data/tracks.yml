@@ -1,0 +1,24 @@
+- title: Spreadsheet Foundations
+  level: Beginner
+  icon: checklist
+  summary: Build comfort with referencing, relative vs absolute addresses, and core math.
+  focus:
+    - SUM, AVERAGE, COUNT
+    - Absolute references
+    - Basic data cleanup
+- title: Analyst Toolkit
+  level: Intermediate
+  icon: pivot_table_chart
+  summary: Transition into analysis-ready tools with tables, pivots, and LOOKUP patterns.
+  focus:
+    - Structured tables
+    - Pivot table prototyping
+    - LOOKUP + INDEX/MATCH
+- title: Automation Sprint
+  level: Advanced
+  icon: auto_fix
+  summary: Challenge power users with dynamic arrays, advanced filters, and macros.
+  focus:
+    - Dynamic arrays
+    - Office Scripts intro
+    - Scenario planning

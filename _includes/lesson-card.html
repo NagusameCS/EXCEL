@@ -1,0 +1,24 @@
+{%- assign difficulty = lesson.difficulty | default: 'Explorer' -%}
+{%- assign slug = lesson.slug | default: lesson.path | split: '/' | last | split: '.' | first -%}
+<article class="lesson-card" data-lesson-slug="{{ slug }}">
+  <div class="lesson-card__meta">
+    <span class="material-symbols-rounded" aria-hidden="true">{{ lesson.icon | default: 'calculate' }}</span>
+    <p>{{ lesson.tool }}</p>
+  </div>
+  <h3><a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></h3>
+  <p>{{ lesson.pitch | default: lesson.description | truncate: 120 }}</p>
+  <dl>
+    <div>
+      <dt>Difficulty</dt>
+      <dd>{{ difficulty }}</dd>
+    </div>
+    <div>
+      <dt>Play time</dt>
+      <dd>{{ lesson.duration }} min</dd>
+    </div>
+  </dl>
+  <div class="lesson-card__footer">
+    <a class="ghost" href="{{ lesson.url | relative_url }}">Open lesson</a>
+    <span class="status-pill" data-progress-pill>New</span>
+  </div>
+</article>
